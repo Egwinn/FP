@@ -30,3 +30,24 @@ function invoke(type, firstFunc, secondFunc) {
     }
 }
 invoke('first', firstFunc, secondFunc);
+
+
+// curry-function  f(a, b, c) => f(a)(b)(c)
+function curry(f) {
+    return function (a) {
+        return function (b) {
+            return f(a, b);
+        };
+    };
+}
+
+// using of curry-function
+// https://khatuntsev.dev/2019-05-08/memoization-and-currying-in-js/
+function sum(a, b) {
+    return a + b;
+}
+let carriedSum = curry(sum);
+console.log(carriedSum(1)(2));
+
+const fiveAdd = carriedSum(5); // частично применённая функция
+console.log(fiveAdd(3));
