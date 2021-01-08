@@ -100,3 +100,37 @@ const memoize = (fn) => {
 const memoizedAdd2 = memoize(tenAdd);
 console.log(memoizedAdd2(3)); // invoke
 console.log(memoizedAdd2(3)); // take from cache
+
+
+// lazy evaluation of function
+// https://www.merrickchristensen.com/articles/lazy-evaluation-in-javascript/
+
+// стратегия энергичного вычисления - выражение вычисляется, как только оно будет привязано к переменной, 
+// независимо от потребности в результате его выполнения
+/* const fib1 = function (a, b) {
+    let c = a + b
+    return { "this": c, "next": fib1(b, c) } // выполняется незамедлительно => переполнение стэка
+}
+const x = fib1(3, 5)
+console.log(x.this, x.next); */
+
+// стратегия ленивого вычисления — вычисления откладываются до тех пор, пока не понадобится их результат
+const fib2 = function (a, b) {
+    let c = a + b
+    return { this: c, next: function () { return fib2(b, c) } }
+}
+const x = fib2(3, 5)
+console.log(x.this, x.next().this);
+
+// использование генератора https://dev.to/hemaka/lazy-recursion-using-javascript-generators-4f5l
+function* fibonacci() {
+    [a, b] = [0, 1]
+    while (true) {
+        yield a;
+        [a, b] = [b, a + b]
+    }
+}
+const fib = fibonacci();
+for (let i = 0; i < 10; i++) {
+    console.log(fib.next().value);
+}
