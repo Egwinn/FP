@@ -51,3 +51,52 @@ console.log(carriedSum(1)(2));
 
 const fiveAdd = carriedSum(5); // частично применённая функция
 console.log(fiveAdd(3));
+
+
+// memoization
+// https://habr.com/ru/company/ruvds/blog/332384/
+// простая функция, прибавляющая 10 к переданному ей числу
+const tenAdd = (n) => (n + 10);
+console.log(tenAdd(9));
+
+// аналогичная функция с мемоизацией
+const memoizedAdd = () => {
+    let cache = {};
+    return (n) => {
+        if (n in cache) {
+            console.log('Fetching from cache');
+            return cache[n];
+        }
+        else {
+            console.log('Calculating result');
+            let result = n + 10;
+            cache[n] = result;
+            return result;
+        }
+    }
+};
+const newAdd = memoizedAdd();
+console.log(newAdd(9)); // invoke
+console.log(newAdd(9)); // take from cache
+
+// простая функция, принимающая другую функцию и возвращающая её же, но с мемоизацией
+const memoize = (fn) => {
+    let cache = {};
+    return (...args) => {
+        let n = args[0];
+        if (n in cache) {
+            console.log('Fetching from cache');
+            return cache[n];
+        }
+        else {
+            console.log('Calculating result');
+            let result = fn(n);
+            cache[n] = result;
+            return result;
+        }
+    }
+}
+// создание функции с мемоизацией из чистой функции tenAdd
+const memoizedAdd2 = memoize(tenAdd);
+console.log(memoizedAdd2(3)); // invoke
+console.log(memoizedAdd2(3)); // take from cache
