@@ -27,3 +27,17 @@ function minMaxImperative(m) {
 }
 
 console.log(minMaxImperative(matrix));
+
+// functional
+
+function minMaxFunctional(m) {
+    let maxArr = [];
+
+    m.forEach(arr => {
+        maxArr.push(Math.max(...arr));  // reduce, recursive
+    });
+
+    return Math.min(...maxArr);
+}
+
+console.log(minMaxFunctional(matrix));
