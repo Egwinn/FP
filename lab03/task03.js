@@ -134,3 +134,30 @@ const fib = fibonacci();
 for (let i = 0; i < 10; i++) {
     console.log(fib.next().value);
 }
+
+
+// monade
+// Монада - это коробка с некоторым значением. Сложные, но наглядные вычисления через цепочки
+// Identity, Maybe, Either, Validation, Promise, List etc.
+// https://fseby.wordpress.com/2016/02/25/практическая-вводная-в-монады-в-javascript/
+// https://curiosity-driven.org/monads-in-javascript
+const R = require('ramda');
+const path = R.path;
+const Maybe = require('ramda-fantasy').Maybe;
+
+const user = {
+    name: 'user',
+    email: 'user@mail.com',
+    prefs: {
+        languages: {
+            imperative: 'java',
+            functional: 'javascript'
+        }
+    }
+};
+
+const getURLForUser = (user) => {
+    return Maybe(user)
+        .map(path(['prefs', 'languages', 'imperative'])) // using of ramda
+};
+console.log(getURLForUser(user));
