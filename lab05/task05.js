@@ -13,8 +13,8 @@ console.log(
             /[a-z]+/g
         )
         .reduce(
-            (prev, nxt) => {
-                prev[nxt] = (prev[nxt] + 1) || 1;
+            (prev, curr) => {
+                prev[curr] = (prev[curr] + 1) || 1;
                 return prev;
             },
             {}
