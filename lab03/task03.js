@@ -161,3 +161,28 @@ const getURLForUser = (user) => {
         .map(path(['prefs', 'languages', 'imperative'])) // using of ramda
 };
 console.log(getURLForUser(user));
+
+// infinite data structure
+// using iterators or generators
+// https://hackernoon.com/infinite-data-structures-in-javascript-eb67ecbccdb
+// https://dev.to/aminnairi/infinite-data-structures-lazy-evaluation-in-javascript-3hif
+const createIterator = function* () {
+    let x = 0;
+    while (true) {
+        yield x;
+        x += 1;
+    }
+};
+
+function take(count, generator) {
+    const result = [];
+
+    while (count--) {
+        result.push(generator.next().value);
+    }
+
+    return result;
+}
+
+const allPos = createIterator();
+console.log(take(15, allPos));
