@@ -186,3 +186,8 @@ function take(count, generator) {
 
 const allPos = createIterator();
 console.log(take(15, allPos));
+
+
+// lambda
+const lambdaAdd = (x, y) => x + y;
+console.log(lambdaAdd(2, 2));
