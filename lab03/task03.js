@@ -191,3 +191,10 @@ console.log(take(15, allPos));
 // lambda
 const lambdaAdd = (x, y) => x + y;
 console.log(lambdaAdd(2, 2));
+
+
+// operation Map, Filter и Reduce
+const arr = [1, 2, 3, 4, 5];
+console.log(arr.map(item => item + 1));
+console.log(arr.filter(item => item % 2 === 0));
+console.log(arr.reduce((accumulator, currentValue) => accumulator + currentValue))
